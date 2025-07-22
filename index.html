@@ -728,22 +728,24 @@
                         
                         // Pre-fill form with customer data when it loads
                         document.addEventListener('DOMContentLoaded', function() {
-                            // Get customer info from URL parameters
-                            const urlParams = new URLSearchParams(window.location.search);
-                            const customerEmail = urlParams.get('email') || urlParams.get('contact_email');
-                            const customerPhone = urlParams.get('phone') || urlParams.get('contact_phone');
-                            const customerName = urlParams.get('name') || urlParams.get('contact_name');
+                                                         // Get customer info from URL parameters
+                             const urlParams = new URLSearchParams(window.location.search);
+                             const customerEmail = urlParams.get('email') || urlParams.get('contact_email');
+                             const customerPhone = urlParams.get('phone') || urlParams.get('contact_phone');
+                             const customerName = urlParams.get('name') || urlParams.get('contact_name');
+                             const contactId = urlParams.get('contact_id') || urlParams.get('ghl_contact_id');
                             
                             // Embed the form with pre-filled data
                             if (FORM_CONFIG.FORM_ID !== 'YOUR_HIGHLEVEL_FORM_ID_HERE') {
                                 const formUrl = `https://${FORM_CONFIG.SUBDOMAIN}.gohighlevel.com/v2/preview/${FORM_CONFIG.FORM_ID}`;
                                 let iframeUrl = formUrl;
                                 
-                                // Add customer data as URL parameters to pre-fill form
-                                const params = new URLSearchParams();
-                                if (customerEmail) params.append('email', customerEmail);
-                                if (customerPhone) params.append('phone', customerPhone);
-                                if (customerName) params.append('name', customerName);
+                                                                 // Add customer data as URL parameters to pre-fill form
+                                 const params = new URLSearchParams();
+                                 if (customerEmail) params.append('email', customerEmail);
+                                 if (customerPhone) params.append('phone', customerPhone);
+                                 if (customerName) params.append('name', customerName);
+                                 if (contactId) params.append('contact_id', contactId);
                                 
                                 if (params.toString()) {
                                     iframeUrl += '?' + params.toString();
@@ -774,7 +776,14 @@
                 </div>
                 
                 <div style="text-align: center; margin-top: 15px; font-style: italic; color: var(--rust);">
-                    Secure checkout • Your information is already filled in • One click to upgrade
+                    Secure checkout • Your information is already filled in • Payment method will be saved for one-click upgrade
+                </div>
+                
+                <div style="background: #e8f4f8; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid var(--rust);">
+                    <small style="color: #555;">
+                        <strong>💳 Payment Auto-Fill:</strong> If you purchased through our system, your payment method will be automatically available. 
+                        If this is your first High Level purchase, you'll enter payment details once and they'll be saved for future purchases.
+                    </small>
                 </div>
             </div>
         </section>
