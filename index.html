@@ -787,20 +787,55 @@
 
     <!-- High Level Payment Integration Script -->
     <script>
-        // Function to handle upsell purchase
+        // Function to handle upsell payment for multiple customers
         function processUpsellPayment() {
-            // This would integrate with High Level's payment system
-            // You'll need to replace with your actual High Level payment logic
+            // Get customer info from URL parameters (passed from original purchase)
+            const urlParams = new URLSearchParams(window.location.search);
+            const customerEmail = urlParams.get('email') || urlParams.get('contact_email');
+            const customerPhone = urlParams.get('phone') || urlParams.get('contact_phone');
+            const contactId = urlParams.get('contact_id');
             
-            // Option 1: Redirect to High Level Payment Link
-            window.location.href = 'YOUR_HIGHLEVEL_PAYMENT_LINK_HERE';
+            // METHOD 1: High Level Order Form with Customer Pre-fill
+            if (customerEmail || customerPhone || contactId) {
+                // Create order form URL with customer data pre-filled
+                let orderFormUrl = 'https://app.gohighlevel.com/v2/preview/YOUR_ORDER_FORM_ID';
+                const params = new URLSearchParams();
+                
+                if (customerEmail) params.append('email', customerEmail);
+                if (customerPhone) params.append('phone', customerPhone);
+                if (contactId) params.append('contact_id', contactId);
+                
+                if (params.toString()) {
+                    orderFormUrl += '?' + params.toString();
+                }
+                
+                window.location.href = orderFormUrl;
+            } else {
+                // METHOD 2: Fallback to regular order form
+                window.location.href = 'https://app.gohighlevel.com/v2/preview/YOUR_ORDER_FORM_ID';
+            }
             
-            // Option 2: Use High Level API (requires backend)
-            // fetch('/process-upsell', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ amount: 297, productId: 'breathing-101-upgrade' })
-            // });
+            // METHOD 3: Backend API Integration (most advanced)
+            // This would require a backend server to integrate with High Level API
+            /*
+            fetch('/api/process-upsell', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    email: customerEmail,
+                    phone: customerPhone,
+                    contactId: contactId,
+                    amount: 297, 
+                    productName: 'Breathing 101 Upgrade'
+                })
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = '/thank-you';
+                } else {
+                    alert('Payment processing failed. Please try again.');
+                }
+            });
+            */
         }
 
         // Add click handler to upsell button
