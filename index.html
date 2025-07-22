@@ -709,10 +709,72 @@
                 <div class="timer-warning">Close this page, and the special price and bonuses disappear.</div>
             </div>
             
-            <div style="text-align: center;">
-                <a href="#" class="cta-button cta-primary" id="upsell-button">Upgrade to Breathing $101 for $297</a>
-                <div style="margin-top: 15px; font-style: italic; color: var(--rust);">
-                    One click, instant enrollment—no extra checkout steps.
+            <!-- Embedded High Level Form -->
+            <div class="embedded-form-container" style="margin: 30px 0; padding: 30px; background: #f9f9f9; border-radius: 12px; border: 2px solid var(--rust);">
+                <h3 style="text-align: center; color: var(--navy); margin-bottom: 20px;">Complete Your Upgrade Now</h3>
+                
+                <!-- High Level Form Embed -->
+                <div id="ghl-form-container">
+                    <!-- Replace YOUR_FORM_ID with your actual High Level form ID -->
+                    <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+                    <script>
+                        // Configuration for High Level Form
+                        const FORM_CONFIG = {
+                            // Replace with your actual High Level form ID
+                            FORM_ID: 'YOUR_HIGHLEVEL_FORM_ID_HERE',
+                            // Replace with your High Level subdomain
+                            SUBDOMAIN: 'YOUR_SUBDOMAIN_HERE'
+                        };
+                        
+                        // Pre-fill form with customer data when it loads
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // Get customer info from URL parameters
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const customerEmail = urlParams.get('email') || urlParams.get('contact_email');
+                            const customerPhone = urlParams.get('phone') || urlParams.get('contact_phone');
+                            const customerName = urlParams.get('name') || urlParams.get('contact_name');
+                            
+                            // Embed the form with pre-filled data
+                            if (FORM_CONFIG.FORM_ID !== 'YOUR_HIGHLEVEL_FORM_ID_HERE') {
+                                const formUrl = `https://${FORM_CONFIG.SUBDOMAIN}.gohighlevel.com/v2/preview/${FORM_CONFIG.FORM_ID}`;
+                                let iframeUrl = formUrl;
+                                
+                                // Add customer data as URL parameters to pre-fill form
+                                const params = new URLSearchParams();
+                                if (customerEmail) params.append('email', customerEmail);
+                                if (customerPhone) params.append('phone', customerPhone);
+                                if (customerName) params.append('name', customerName);
+                                
+                                if (params.toString()) {
+                                    iframeUrl += '?' + params.toString();
+                                }
+                                
+                                // Create iframe for embedded form
+                                const iframe = document.createElement('iframe');
+                                iframe.src = iframeUrl;
+                                iframe.width = '100%';
+                                iframe.height = '600';
+                                iframe.frameBorder = '0';
+                                iframe.style.border = 'none';
+                                iframe.style.borderRadius = '8px';
+                                
+                                document.getElementById('ghl-form-container').appendChild(iframe);
+                            } else {
+                                // Show setup instructions if not configured
+                                document.getElementById('ghl-form-container').innerHTML = `
+                                    <div style="text-align: center; padding: 40px; background: #fff; border-radius: 8px; border: 2px dashed #ccc;">
+                                        <h4 style="color: var(--rust); margin-bottom: 15px;">⚙️ Form Setup Required</h4>
+                                        <p style="color: #666; margin-bottom: 20px;">Please configure your High Level form ID and subdomain in the code.</p>
+                                        <a href="#" class="cta-button cta-primary" onclick="alert('Please set up your High Level form first - see instructions below')">Complete Setup First</a>
+                                    </div>
+                                `;
+                            }
+                        });
+                    </script>
+                </div>
+                
+                <div style="text-align: center; margin-top: 15px; font-style: italic; color: var(--rust);">
+                    Secure checkout • Your information is already filled in • One click to upgrade
                 </div>
             </div>
         </section>
@@ -785,79 +847,6 @@
         });
     </script>
 
-    <!-- High Level Payment Integration Script -->
-    <script>
-        // ========================================
-        // CONFIGURATION - UPDATE THIS SECTION
-        // ========================================
-        const CONFIG = {
-            // Replace this with your actual High Level order form URL
-            // Example: 'https://yoursubdomain.gohighlevel.com/breathing-101-upsell'
-            ORDER_FORM_URL: 'YOUR_HIGHLEVEL_ORDER_FORM_URL_HERE'
-        };
-        // ========================================
 
-        // Function to handle upsell payment for multiple customers
-        function processUpsellPayment() {
-            // Get customer info from URL parameters (passed from original purchase)
-            const urlParams = new URLSearchParams(window.location.search);
-            const customerEmail = urlParams.get('email') || urlParams.get('contact_email');
-            const customerPhone = urlParams.get('phone') || urlParams.get('contact_phone');
-            const contactId = urlParams.get('contact_id');
-            
-            // METHOD 1: High Level Order Form with Customer Pre-fill
-            if (customerEmail || customerPhone || contactId) {
-                // Create order form URL with customer data pre-filled
-                let orderFormUrl = CONFIG.ORDER_FORM_URL;
-                const params = new URLSearchParams();
-                
-                if (customerEmail) params.append('email', customerEmail);
-                if (customerPhone) params.append('phone', customerPhone);
-                if (contactId) params.append('contact_id', contactId);
-                
-                if (params.toString()) {
-                    orderFormUrl += '?' + params.toString();
-                }
-                
-                window.location.href = orderFormUrl;
-            } else {
-                // METHOD 2: Fallback to regular order form
-                window.location.href = CONFIG.ORDER_FORM_URL;
-            }
-            
-            // METHOD 3: Backend API Integration (most advanced)
-            // This would require a backend server to integrate with High Level API
-            /*
-            fetch('/api/process-upsell', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    email: customerEmail,
-                    phone: customerPhone,
-                    contactId: contactId,
-                    amount: 297, 
-                    productName: 'Breathing 101 Upgrade'
-                })
-            }).then(response => {
-                if (response.ok) {
-                    window.location.href = '/thank-you';
-                } else {
-                    alert('Payment processing failed. Please try again.');
-                }
-            });
-            */
-        }
-
-        // Add click handler to upsell button
-        document.addEventListener('DOMContentLoaded', function() {
-            const upsellButton = document.querySelector('#upsell-button');
-            if (upsellButton) {
-                upsellButton.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    processUpsellPayment();
-                });
-            }
-        });
-    </script>
 </body>
 </html>
