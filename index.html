@@ -710,7 +710,7 @@
             </div>
             
             <div style="text-align: center;">
-                <a href="https://app.gohighlevel.com/v2/preview/ORDER_FORM_ID" class="cta-button cta-primary">Upgrade to Breathing $101 for $297</a>
+                <a href="#" class="cta-button cta-primary" id="upsell-button">Upgrade to Breathing $101 for $297</a>
                 <div style="margin-top: 15px; font-style: italic; color: var(--rust);">
                     One click, instant enrollment—no extra checkout steps.
                 </div>
@@ -787,6 +787,16 @@
 
     <!-- High Level Payment Integration Script -->
     <script>
+        // ========================================
+        // CONFIGURATION - UPDATE THIS SECTION
+        // ========================================
+        const CONFIG = {
+            // Replace this with your actual High Level order form URL
+            // Example: 'https://yoursubdomain.gohighlevel.com/breathing-101-upsell'
+            ORDER_FORM_URL: 'YOUR_HIGHLEVEL_ORDER_FORM_URL_HERE'
+        };
+        // ========================================
+
         // Function to handle upsell payment for multiple customers
         function processUpsellPayment() {
             // Get customer info from URL parameters (passed from original purchase)
@@ -798,7 +808,7 @@
             // METHOD 1: High Level Order Form with Customer Pre-fill
             if (customerEmail || customerPhone || contactId) {
                 // Create order form URL with customer data pre-filled
-                let orderFormUrl = 'https://app.gohighlevel.com/v2/preview/YOUR_ORDER_FORM_ID';
+                let orderFormUrl = CONFIG.ORDER_FORM_URL;
                 const params = new URLSearchParams();
                 
                 if (customerEmail) params.append('email', customerEmail);
@@ -812,7 +822,7 @@
                 window.location.href = orderFormUrl;
             } else {
                 // METHOD 2: Fallback to regular order form
-                window.location.href = 'https://app.gohighlevel.com/v2/preview/YOUR_ORDER_FORM_ID';
+                window.location.href = CONFIG.ORDER_FORM_URL;
             }
             
             // METHOD 3: Backend API Integration (most advanced)
@@ -840,7 +850,7 @@
 
         // Add click handler to upsell button
         document.addEventListener('DOMContentLoaded', function() {
-            const upsellButton = document.querySelector('.cta-primary');
+            const upsellButton = document.querySelector('#upsell-button');
             if (upsellButton) {
                 upsellButton.addEventListener('click', function(e) {
                     e.preventDefault();
