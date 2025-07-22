@@ -710,7 +710,7 @@
             </div>
             
             <div style="text-align: center;">
-                <a href="#" class="cta-button cta-primary">Upgrade to Breathing $101 for $297</a>
+                <a href="https://app.gohighlevel.com/v2/preview/ORDER_FORM_ID" class="cta-button cta-primary">Upgrade to Breathing $101 for $297</a>
                 <div style="margin-top: 15px; font-style: italic; color: var(--rust);">
                     One click, instant enrollment—no extra checkout steps.
                 </div>
@@ -782,6 +782,36 @@
             section.style.transform = 'translateY(30px)';
             section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(section);
+        });
+    </script>
+
+    <!-- High Level Payment Integration Script -->
+    <script>
+        // Function to handle upsell purchase
+        function processUpsellPayment() {
+            // This would integrate with High Level's payment system
+            // You'll need to replace with your actual High Level payment logic
+            
+            // Option 1: Redirect to High Level Payment Link
+            window.location.href = 'YOUR_HIGHLEVEL_PAYMENT_LINK_HERE';
+            
+            // Option 2: Use High Level API (requires backend)
+            // fetch('/process-upsell', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({ amount: 297, productId: 'breathing-101-upgrade' })
+            // });
+        }
+
+        // Add click handler to upsell button
+        document.addEventListener('DOMContentLoaded', function() {
+            const upsellButton = document.querySelector('.cta-primary');
+            if (upsellButton) {
+                upsellButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    processUpsellPayment();
+                });
+            }
         });
     </script>
 </body>
