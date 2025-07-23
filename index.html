@@ -709,83 +709,87 @@
                 <div class="timer-warning">Close this page, and the special price and bonuses disappear.</div>
             </div>
             
-            <!-- Embedded High Level Form -->
-            <div class="embedded-form-container" style="margin: 30px 0; padding: 30px; background: #f9f9f9; border-radius: 12px; border: 2px solid var(--rust);">
-                <h3 style="text-align: center; color: var(--navy); margin-bottom: 20px;">Complete Your Upgrade Now</h3>
+            <!-- Embedded High Level Form - Optimized for Conversion -->
+            <div class="embedded-form-container" style="margin: 40px 0; padding: 35px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 16px; border: 3px solid var(--rust); box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
                 
-                <!-- High Level Form Embed -->
-                <div id="ghl-form-container">
-                    <!-- Replace YOUR_FORM_ID with your actual High Level form ID -->
-                    <script src="https://link.msgsndr.com/js/form_embed.js"></script>
-                    <script>
-                        // Configuration for High Level Form
-                        const FORM_CONFIG = {
-                            // Replace with your actual High Level form ID
-                            FORM_ID: 'YOUR_HIGHLEVEL_FORM_ID_HERE',
-                            // Replace with your High Level subdomain
-                            SUBDOMAIN: 'YOUR_SUBDOMAIN_HERE'
-                        };
-                        
-                        // Pre-fill form with customer data when it loads
-                        document.addEventListener('DOMContentLoaded', function() {
-                                                         // Get customer info from URL parameters
-                             const urlParams = new URLSearchParams(window.location.search);
-                             const customerEmail = urlParams.get('email') || urlParams.get('contact_email');
-                             const customerPhone = urlParams.get('phone') || urlParams.get('contact_phone');
-                             const customerName = urlParams.get('name') || urlParams.get('contact_name');
-                             const contactId = urlParams.get('contact_id') || urlParams.get('ghl_contact_id');
-                            
-                            // Embed the form with pre-filled data
-                            if (FORM_CONFIG.FORM_ID !== 'YOUR_HIGHLEVEL_FORM_ID_HERE') {
-                                const formUrl = `https://${FORM_CONFIG.SUBDOMAIN}.gohighlevel.com/v2/preview/${FORM_CONFIG.FORM_ID}`;
-                                let iframeUrl = formUrl;
-                                
-                                                                 // Add customer data as URL parameters to pre-fill form
-                                 const params = new URLSearchParams();
-                                 if (customerEmail) params.append('email', customerEmail);
-                                 if (customerPhone) params.append('phone', customerPhone);
-                                 if (customerName) params.append('name', customerName);
-                                 if (contactId) params.append('contact_id', contactId);
-                                
-                                if (params.toString()) {
-                                    iframeUrl += '?' + params.toString();
-                                }
-                                
-                                // Create iframe for embedded form
-                                const iframe = document.createElement('iframe');
-                                iframe.src = iframeUrl;
-                                iframe.width = '100%';
-                                iframe.height = '600';
-                                iframe.frameBorder = '0';
-                                iframe.style.border = 'none';
-                                iframe.style.borderRadius = '8px';
-                                
-                                document.getElementById('ghl-form-container').appendChild(iframe);
-                            } else {
-                                // Show setup instructions if not configured
-                                document.getElementById('ghl-form-container').innerHTML = `
-                                    <div style="text-align: center; padding: 40px; background: #fff; border-radius: 8px; border: 2px dashed #ccc;">
-                                        <h4 style="color: var(--rust); margin-bottom: 15px;">⚙️ Form Setup Required</h4>
-                                        <p style="color: #666; margin-bottom: 20px;">Please configure your High Level form ID and subdomain in the code.</p>
-                                        <a href="#" class="cta-button cta-primary" onclick="alert('Please set up your High Level form first - see instructions below')">Complete Setup First</a>
-                                    </div>
-                                `;
-                            }
-                        });
-                    </script>
+                <!-- Conversion-Optimized Header -->
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <h3 style="color: var(--navy); margin-bottom: 8px; font-size: 28px; font-weight: bold;">🎯 Complete Your Upgrade Now</h3>
+                    <p style="color: var(--rust); font-size: 18px; font-weight: 600; margin-bottom: 15px;">Your information is pre-filled • One-click upgrade • Save $200 today!</p>
+                    <div style="background: var(--rust); color: white; padding: 8px 20px; border-radius: 25px; display: inline-block; font-weight: bold; font-size: 14px;">
+                        ⚡ Limited Time: Only $297 (Regularly $497)
+                    </div>
+                </div>
+
+                <!-- High Level Form Embed with Pre-fill Logic -->
+                <div id="ghl-form-container" style="min-height: 600px;">
+                    <iframe
+                        src="https://link.actionpotential.ai/widget/form/z29COxp78Bz7nysEtf4Q"
+                        style="width:100%;height:600px;border:none;border-radius:8px;box-shadow: 0 4px 15px rgba(0,0,0,0.1);"
+                        id="inline-z29COxp78Bz7nysEtf4Q" 
+                        data-layout="{'id':'INLINE'}"
+                        data-trigger-type="alwaysShow"
+                        data-trigger-value=""
+                        data-activation-type="alwaysActivated"
+                        data-activation-value=""
+                        data-deactivation-type="neverDeactivate"
+                        data-deactivation-value=""
+                        data-form-name="Breathing 101 Upgrade"
+                        data-height="600"
+                        data-layout-iframe-id="inline-z29COxp78Bz7nysEtf4Q"
+                        data-form-id="z29COxp78Bz7nysEtf4Q"
+                        title="Breathing 101 Upgrade">
+                    </iframe>
                 </div>
                 
-                <div style="text-align: center; margin-top: 15px; font-style: italic; color: var(--rust);">
-                    Secure checkout • Your information is already filled in • Payment method will be saved for one-click upgrade
+                <!-- Trust and Urgency Elements -->
+                <div style="text-align: center; margin-top: 20px;">
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 15px;">
+                        <span style="color: #28a745; font-weight: bold; font-size: 14px;">🔒 Secure SSL Encryption</span>
+                        <span style="color: #28a745; font-weight: bold; font-size: 14px;">💳 Payment Info Auto-Saved</span>
+                        <span style="color: #28a745; font-weight: bold; font-size: 14px;">📱 Instant Access</span>
+                    </div>
                 </div>
                 
-                <div style="background: #e8f4f8; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid var(--rust);">
-                    <small style="color: #555;">
-                        <strong>💳 Payment Auto-Fill:</strong> If you purchased through our system, your payment method will be automatically available. 
-                        If this is your first High Level purchase, you'll enter payment details once and they'll be saved for future purchases.
+                <!-- Social Proof / Guarantee -->
+                <div style="background: #fff; padding: 15px; border-radius: 8px; margin-top: 15px; border: 1px solid #dee2e6; text-align: center;">
+                    <small style="color: #666; line-height: 1.4;">
+                        <strong style="color: var(--navy);">✅ 30-Day Money-Back Guarantee</strong><br>
+                        Join over 1,000+ students who've transformed their breathing practice with Breathing 101
                     </small>
                 </div>
             </div>
+
+            <!-- Form Pre-fill Script -->
+            <script src="https://link.actionpotential.ai/js/form_embed.js"></script>
+            <script>
+                // Pre-fill form with customer data from URL parameters
+                document.addEventListener('DOMContentLoaded', function() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const customerEmail = urlParams.get('email') || urlParams.get('contact_email');
+                    const customerPhone = urlParams.get('phone') || urlParams.get('contact_phone');
+                    const customerName = urlParams.get('name') || urlParams.get('contact_name');
+                    const contactId = urlParams.get('contact_id') || urlParams.get('ghl_contact_id');
+                    
+                    // If customer data exists, update iframe src with pre-fill parameters
+                    if (customerEmail || customerPhone || customerName || contactId) {
+                        const iframe = document.getElementById('inline-z29COxp78Bz7nysEtf4Q');
+                        if (iframe) {
+                            const baseUrl = 'https://link.actionpotential.ai/widget/form/z29COxp78Bz7nysEtf4Q';
+                            const params = new URLSearchParams();
+                            
+                            if (customerEmail) params.append('email', customerEmail);
+                            if (customerPhone) params.append('phone', customerPhone);
+                            if (customerName) params.append('name', customerName);
+                            if (contactId) params.append('contact_id', contactId);
+                            
+                            if (params.toString()) {
+                                iframe.src = baseUrl + '?' + params.toString();
+                            }
+                        }
+                    }
+                });
+            </script>
         </section>
 
         <!-- Decline Section -->
