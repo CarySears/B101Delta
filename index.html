@@ -609,7 +609,13 @@
                 If you don't see it, check your spam or promotions folder—then drag our email to your primary inbox.
             </div>
             
-            <a href="#" class="cta-button">Go Check Your Inbox Now</a>
+            <a
+                href="https://mail.google.com/mail/u/0/#inbox"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="cta-button"
+                id="check-inbox-button"
+            >Go Check Your Inbox Now</a>
         </section>
 
         <!-- Upsell Banner -->
@@ -829,11 +835,49 @@
         updateTimer(); // Initial call
         setInterval(updateTimer, 1000);
         
+        function getInboxUrlForEmail(emailAddress) {
+            if (!emailAddress || !emailAddress.includes('@')) {
+                return 'https://mail.google.com/mail/u/0/#inbox';
+            }
+
+            const domain = emailAddress.split('@').pop().toLowerCase();
+            const domainToInbox = {
+                'gmail.com': 'https://mail.google.com/mail/u/0/#inbox',
+                'googlemail.com': 'https://mail.google.com/mail/u/0/#inbox',
+                'outlook.com': 'https://outlook.live.com/mail/0/inbox',
+                'hotmail.com': 'https://outlook.live.com/mail/0/inbox',
+                'live.com': 'https://outlook.live.com/mail/0/inbox',
+                'msn.com': 'https://outlook.live.com/mail/0/inbox',
+                'yahoo.com': 'https://mail.yahoo.com',
+                'icloud.com': 'https://www.icloud.com/mail',
+                'me.com': 'https://www.icloud.com/mail',
+                'mac.com': 'https://www.icloud.com/mail',
+                'aol.com': 'https://mail.aol.com',
+                'proton.me': 'https://mail.proton.me/u/0/inbox',
+                'protonmail.com': 'https://mail.proton.me/u/0/inbox'
+            };
+
+            return domainToInbox[domain] || `https://www.google.com/search?q=${encodeURIComponent(`${domain} webmail login`)}`;
+        }
+
+        // Use the visitor's email domain (if available) to send them to the right inbox.
+        const inboxButton = document.getElementById('check-inbox-button');
+        if (inboxButton) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const customerEmail = urlParams.get('email') || urlParams.get('contact_email');
+            inboxButton.href = getInboxUrlForEmail(customerEmail);
+        }
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const targetSelector = this.getAttribute('href');
+                if (!targetSelector || targetSelector === '#') {
+                    return;
+                }
+
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const target = document.querySelector(targetSelector);
                 if (target) {
                     target.scrollIntoView({
                         behavior: 'smooth'
