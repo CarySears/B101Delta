@@ -386,36 +386,6 @@
             font-size: 1.1rem;
         }
         
-        /* Timer */
-        .countdown-timer {
-            background: rgba(155, 77, 50, 0.1);
-            border: 2px solid var(--rust);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .countdown-timer h4 {
-            color: var(--rust);
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-        
-        .timer-display {
-            font-family: 'Courier New', monospace;
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--sea);
-            margin-bottom: 10px;
-        }
-        
-        .timer-warning {
-            color: var(--rust);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-        
         /* Bonuses */
         .bonuses {
             background: linear-gradient(135deg, rgba(206, 143, 41, 0.1) 0%, rgba(206, 143, 41, 0.05) 100%);
@@ -491,10 +461,6 @@
                 width: 100%;
                 max-width: 350px;
                 margin: 10px 0;
-            }
-            
-            .timer-display {
-                font-size: 1.5rem;
             }
             
             .new-price {
@@ -704,12 +670,6 @@
                 </div>
             </div>
             
-            <div class="countdown-timer">
-                <h4>⏰ Hurry—this upgrade offer expires in:</h4>
-                <div class="timer-display" id="countdown">10:00</div>
-                <div class="timer-warning">Close this page, and the special price and bonuses disappear.</div>
-            </div>
-            
             <!-- Embedded High Level Form - Optimized for Conversion -->
             <div class="embedded-form-container" style="margin: 40px 0; padding: 35px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 16px; border: 3px solid var(--rust); box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
                 
@@ -805,31 +765,6 @@
     </div>
 
     <script>
-        // Countdown Timer
-        let timeLeft = 10 * 60; // 10 minutes in seconds
-        
-        function updateTimer() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            
-            document.getElementById('countdown').textContent = 
-                `${minutes}:${seconds.toString().padStart(2, '0')}`;
-            
-            if (timeLeft <= 0) {
-                document.querySelector('.countdown-timer').innerHTML = 
-                    '<h4 style="color: var(--rust);">⏰ Offer Expired!</h4><div style="color: var(--rust);">This special upgrade price is no longer available.</div>';
-                document.querySelector('.cta-primary').style.opacity = '0.5';
-                document.querySelector('.cta-primary').style.pointerEvents = 'none';
-                return;
-            }
-            
-            timeLeft--;
-        }
-        
-        // Update timer every second
-        updateTimer(); // Initial call
-        setInterval(updateTimer, 1000);
-        
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
